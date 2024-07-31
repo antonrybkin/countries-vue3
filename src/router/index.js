@@ -11,4 +11,14 @@ const router = createRouter({
   routes
 });
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = !!localStorage.getItem('user');
+  
+  if (to.path !== '/' && !isAuthenticated) {
+    next({ path: '/' });
+  } else {
+    next();
+  }
+});
+
 export default router;
